@@ -74,9 +74,10 @@ export default function Home() {
     setLoading(true);
     let image = await Image.load(url);
     image = image.resize({ width: resolution });
+    const {channels} = image
 
     let html = '';
-    for (let i = 0; i < image.data.length; i += 3) {
+    for (let i = 0; i < image.data.length; i += channels) {
       const mean = (image.data[i] + image.data[i + 1] + image.data[i + 2]) / 3;
       const char = getConvertedChar(mean);
       const color = `rgb(${image.data[i]}, ${image.data[i + 1]}, ${
@@ -85,7 +86,7 @@ export default function Home() {
       html +=
         `<span style="color: ${color}; ">${char}</span>` +
         `<span style="color: ${color}; ">${char}</span>`;
-      if ((i + 3) % (image.width * 3) === 0) html += '<br />';
+      if ((i + channels) % (image.width * channels) === 0) html += '<br />';
     }
 
     setTimeout(() => {
