@@ -1,93 +1,37 @@
 import React, { useState, useRef } from 'react';
 import Head from 'next/head';
-import { Image } from 'image-js';
-import { Button, Slider } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
-const ASCII = ['@', '#', '$', 'S', '%', '?', '*', '+', 'o', ':', '.'];
-const getConvertedChar = (val) => ASCII[Math.floor(val / 25)];
-const MIN_RESOLUTION = 50;
-const MAX_RESOLUTION = 500;
-const PrettoSlider = withStyles({
-  root: {
-    color: '#52af77',
-    height: 8,
-  },
-  thumb: {
-    height: 24,
-    width: 24,
-    backgroundColor: '#fff',
-    border: '2px solid currentColor',
-    marginTop: -8,
-    marginLeft: -12,
-    '&:focus, &:hover, &$active': {
-      boxShadow: 'inherit',
-    },
-  },
-  active: {},
-  valueLabel: {
-    left: 'calc(-50% + 4px)',
-  },
-  mark: {
-    height: 0,
-  },
-  track: {
-    height: 8,
-    borderRadius: 4,
-  },
-  rail: {
-    height: 8,
-    borderRadius: 4,
-  },
-})(Slider);
+import { Button } from '@material-ui/core';
+import { CustomSlider } from '../components';
+import { getGrayscaleResult, getColorfulResult } from '../helpers';
 
 export default function Home() {
-  const [resolution, setResolution] = useState(100);
+  const MIN_WIDTH = 50;
+  const MAX_WIDTH = Math.floor(800 / 12); // 12px
+
+  const [width, setWidth] = useState(MIN_WIDTH);
   const [file, setFile] = useState(null);
   const [output, setOutput] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const fontSize = 600 / resolution;
+  const fontSize = 800 / width;
   const result = useRef(null);
 
-  const handleGreyscaleImage = async (url) => {
+  const handleGrayscaleImage = async () => {
     result.current.innerHTML = '';
     setLoading(true);
-    const image = await Image.load(url);
-    const grey = image.grey().resize({ width: resolution });
-
-    let string = '';
-    for (let i = 0; i < grey.data.length; i++) {
-      const char = getConvertedChar(grey.data[i]);
-      string += char + char;
-      if ((i + 1) % grey.width === 0) string += '\n';
-    }
+    const string = await getGrayscaleResult(URL.createObjectURL(file), width);
 
     setTimeout(() => {
       result.current.innerText = string;
       setLoading(false);
-    }, 100);
+    }, 1000);
     setOutput(string);
   };
 
-  const handleColorfulImage = async (url) => {
+  const handleColorfulImage = async () => {
     result.current.innerText = '';
     setLoading(true);
-    let image = await Image.load(url);
-    image = image.resize({ width: resolution });
-    const {channels} = image
-
-    let html = '';
-    for (let i = 0; i < image.data.length; i += channels) {
-      const mean = (image.data[i] + image.data[i + 1] + image.data[i + 2]) / 3;
-      const char = getConvertedChar(mean);
-      const color = `rgb(${image.data[i]}, ${image.data[i + 1]}, ${
-        image.data[i + 2]
-      })`;
-      html +=
-        `<span style="color: ${color}; ">${char}</span>` +
-        `<span style="color: ${color}; ">${char}</span>`;
-      if ((i + channels) % (image.width * channels) === 0) html += '<br />';
-    }
+    const html = await getColorfulResult(URL.createObjectURL(file), width);
 
     setTimeout(() => {
       setLoading(false);
@@ -104,10 +48,10 @@ export default function Home() {
     setFile(e.target.files[0]);
   };
 
-  const handleUpdateResolution = (e, newValue) => {
+  const handleUpdateWidth = (e, newValue) => {
     result.current.innerText = '';
     result.current.innerHTML = '';
-    setResolution(newValue);
+    setWidth(newValue);
   };
 
   return (
@@ -130,15 +74,15 @@ export default function Home() {
             Upload
           </Button>
         </label>
-        <span>{file && file.name}</span>
+        {file && <span>${file.name}</span>}
         <div style={{ width: '200px', marginLeft: '50px' }}>
-          <PrettoSlider
-            defaultValue={resolution}
-            value={resolution}
-            onChange={handleUpdateResolution}
+          <CustomSlider
+            defaultValue={width}
+            value={width}
+            onChange={handleUpdateWidth}
             marks
-            min={MIN_RESOLUTION}
-            max={MAX_RESOLUTION}
+            min={MIN_WIDTH}
+            max={MAX_WIDTH}
             valueLabelDisplay="auto"
           />
         </div>
@@ -147,15 +91,15 @@ export default function Home() {
           color="primary"
           component="span"
           disabled={!file}
-          onClick={() => handleGreyscaleImage(URL.createObjectURL(file))}>
-          greyscale
+          onClick={handleGrayscaleImage}>
+          grayscale
         </Button>
         <Button
           variant="outlined"
           color="primary"
           component="span"
           disabled={!file}
-          onClick={() => handleColorfulImage(URL.createObjectURL(file))}>
+          onClick={handleColorfulImage}>
           colorful
         </Button>
         <Button variant="contained" color="primary" component="span">
@@ -168,7 +112,12 @@ export default function Home() {
 
         {loading && <div>Loading.....</div>}
 
-        <div ref={result} style={{ fontFamily: 'monospace', fontSize }}></div>
+        <div
+          ref={result}
+          style={{
+            fontFamily: 'monospace',
+            fontSize,
+          }}></div>
       </div>
     </div>
   );
