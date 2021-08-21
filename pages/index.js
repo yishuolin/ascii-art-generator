@@ -69,14 +69,37 @@ export default function Home() {
           hidden
           onChange={handleUpdateFile}
         />
+
+        <div style={{paddingTop: '40px' , paddingLeft: '80px' , paddingBottom: '30px' , color: '#FFFFFF' , fontSize: '50px' , fontFamily: 'Verdana'  , backgroundColor: '#9faeda'}}>
+          ASCII Art 
+        <div> Generator</div>
+        </div>
+
+        <div style={{marginTop: '60px' , marginLeft: '80px' , color: '#657ec3' , fontSize: '15px' , fontFamily: 'Verdana' }}>
+          <span style={{fontWeight: "bold" , color: '#526ebc'}}>Step 1:</span> Upload a picture.
+        </div>
+
+        <div>
         <label htmlFor="contained-button-file">
-          <Button variant="contained" color="primary" component="span">
+          <Button style = {{ marginTop: '20px' , marginLeft: '150px'}}
+            variant="contained" color="primary" component="span">
             Upload
           </Button>
         </label>
-        {file && <span>${file.name}</span>}
-        <div style={{ width: '200px', marginLeft: '50px' }}>
-          <CustomSlider
+        </div>
+
+        <div style={{fontSize: '10px' , marginTop: '10px' , marginLeft: '150px', color: '#526ebc'}}>
+          File name:
+          {file && <div>${file.name}</div>}
+        </div>
+        
+        <div style={{marginTop: '50px' , marginLeft: '80px' , color: '#657ec3' , fontSize: '15px' , fontFamily: 'Verdana' }}>
+          <span style={{fontWeight: "bold", color: '#526ebc'}}>Step 2:</span> Character density.
+          <div></div>
+        </div>
+
+        <div>
+        <CustomSlider style={{ width: '250px' , marginTop: '20px' , marginLeft: '150px'}}
             defaultValue={width}
             value={width}
             onChange={handleUpdateWidth}
@@ -84,40 +107,60 @@ export default function Home() {
             min={MIN_WIDTH}
             max={MAX_WIDTH}
             valueLabelDisplay="auto"
+            color="#3354a1"
           />
+          {loading && <span style={{marginLeft: '440px' , marginTop: '20px' , color: '#657ec3'}}>Loading.....</span>}
         </div>
-        <Button
-          variant="outlined"
+
+        <div style={{marginTop: '50px' , marginLeft: '80px' , color: '#657ec3' , fontSize: '15px' , fontFamily: 'Verdana' }}>
+        <span style={{fontWeight: "bold" , color: '#526ebc'}}>Step 3:</span> Choose the color scheme generated.
+        </div>
+        
+        <div style={{marginTop: '20px'}}>
+        <Button style={{marginLeft: '150px'}}
+          variant="contained"
           color="primary"
           component="span"
           disabled={!file}
           onClick={handleGrayscaleImage}>
-          grayscale
+          grayscale         
         </Button>
-        <Button
-          variant="outlined"
+        </div>
+        <div>
+        <Button style={{marginLeft: '150px' , marginTop: '10px'}}
+          variant="contained"
           color="primary"
           component="span"
           disabled={!file}
           onClick={handleColorfulImage}>
           colorful
         </Button>
-        <Button variant="contained" color="primary" component="span">
+        </div>
+
+        <div style={{marginTop: '50px' , marginLeft: '80px' , color: '#657ec3' , fontSize: '15px' , fontFamily: 'Verdana' }}>
+          <span style={{fontWeight: "bold" , color: '#526ebc'}}>Step 4:</span> Download.
+        </div>
+
+        <div>
+        <Button style={{marginTop: '20px' , marginLeft: '150px'}}
+          variant="contained" color="primary" component="span">
           <a
             href={`data:text/plain;charset=utf-8,${encodeURIComponent(output)}`}
             download={output.startsWith('<div') ? 'art.html' : 'art.txt'}>
             Download
           </a>
         </Button>
-
-        {loading && <div>Loading.....</div>}
-
-        <div
+        </div>
+    
+      <div
           ref={result}
           style={{
             fontFamily: 'monospace',
             fontSize,
+            marginLeft: '450px',
+            marginTop: '-520px',
           }}></div>
+
       </div>
     </div>
   );
