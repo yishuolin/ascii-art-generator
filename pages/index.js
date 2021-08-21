@@ -107,7 +107,6 @@ export default function Home() {
             min={MIN_WIDTH}
             max={MAX_WIDTH}
             valueLabelDisplay="auto"
-            color="#3354a1"
           />
           {loading && <span style={{marginLeft: '440px' , marginTop: '20px' , color: '#657ec3'}}>Loading.....</span>}
         </div>
