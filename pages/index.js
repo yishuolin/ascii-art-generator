@@ -73,7 +73,7 @@ export default function Home() {
         <div
           style={{
             paddingTop: '40px',
-            paddingLeft: '80px',
+            paddingLeft: '5%',
             paddingBottom: '30px',
             color: '#FFFFFF',
             fontSize: '50px',
@@ -87,7 +87,7 @@ export default function Home() {
         <div
           style={{
             marginTop: '60px',
-            marginLeft: '80px',
+            marginLeft: '5%',
             color: '#657ec3',
             fontSize: '15px',
             fontFamily: 'Verdana',
@@ -99,7 +99,7 @@ export default function Home() {
         <div>
           <label htmlFor="contained-button-file">
             <Button
-              style={{ marginTop: '20px', marginLeft: '150px' }}
+              style={{ marginTop: '20px', marginLeft: '9.3%' }}
               variant="contained"
               color="primary"
               component="span">
@@ -112,7 +112,7 @@ export default function Home() {
           style={{
             fontSize: '10px',
             marginTop: '10px',
-            marginLeft: '150px',
+            marginLeft: '9.3%',
             color: '#526ebc',
           }}>
           File name:
@@ -122,7 +122,7 @@ export default function Home() {
         <div
           style={{
             marginTop: '50px',
-            marginLeft: '80px',
+            marginLeft: '5%',
             color: '#657ec3',
             fontSize: '15px',
             fontFamily: 'Verdana',
@@ -134,7 +134,7 @@ export default function Home() {
 
         <div>
           <CustomSlider
-            style={{ width: '250px', marginTop: '20px', marginLeft: '150px' }}
+            style={{ width: '250px', marginTop: '20px', marginLeft: '9.3%' }}
             defaultValue={width}
             value={width}
             onChange={handleUpdateWidth}
@@ -146,7 +146,7 @@ export default function Home() {
           {loading && (
             <span
               style={{
-                marginLeft: '440px',
+                marginLeft: '30%',
                 marginTop: '20px',
                 color: '#657ec3',
               }}>
@@ -158,7 +158,7 @@ export default function Home() {
         <div
           style={{
             marginTop: '50px',
-            marginLeft: '80px',
+            marginLeft: '5%',
             color: '#657ec3',
             fontSize: '15px',
             fontFamily: 'Verdana',
@@ -169,7 +169,7 @@ export default function Home() {
 
         <div style={{ marginTop: '20px' }}>
           <Button
-            style={{ marginLeft: '150px' }}
+            style={{ marginLeft: '9.3%' }}
             variant="contained"
             color="primary"
             component="span"
@@ -180,7 +180,7 @@ export default function Home() {
         </div>
         <div>
           <Button
-            style={{ marginLeft: '150px', marginTop: '10px' }}
+            style={{ marginLeft: '9.3%', marginTop: '10px' }}
             variant="contained"
             color="primary"
             component="span"
@@ -193,7 +193,7 @@ export default function Home() {
         <div
           style={{
             marginTop: '50px',
-            marginLeft: '80px',
+            marginLeft: '5%',
             color: '#657ec3',
             fontSize: '15px',
             fontFamily: 'Verdana',
@@ -204,7 +204,7 @@ export default function Home() {
 
         <div>
           <Button
-            style={{ marginTop: '20px', marginLeft: '150px' }}
+            style={{ marginTop: '20px', marginLeft: '9.3%' }}
             variant="contained"
             color="primary"
             component="span">
@@ -223,8 +223,8 @@ export default function Home() {
           style={{
             fontFamily: 'monospace',
             fontSize,
-            marginLeft: '450px',
-            marginTop: '-520px',
+            marginLeft: '29%',
+            marginTop: '-39%',
           }}></div>
       </div>
     </div>
