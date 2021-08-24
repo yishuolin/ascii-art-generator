@@ -2,7 +2,7 @@ import { Slider } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 const CustomSlider = withStyles({
   root: {
-    color: '#52af77',
+    color: '#3354a1"',
     height: 8,
   },
   thumb: {
