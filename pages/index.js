@@ -70,36 +70,71 @@ export default function Home() {
           onChange={handleUpdateFile}
         />
 
-        <div style={{paddingTop: '40px' , paddingLeft: '80px' , paddingBottom: '30px' , color: '#FFFFFF' , fontSize: '50px' , fontFamily: 'Verdana'  , backgroundColor: '#9faeda'}}>
-          ASCII Art 
-        <div> Generator</div>
+        <div
+          style={{
+            paddingTop: '40px',
+            paddingLeft: '80px',
+            paddingBottom: '30px',
+            color: '#FFFFFF',
+            fontSize: '50px',
+            fontFamily: 'Verdana',
+            backgroundColor: '#9faeda',
+          }}>
+          ASCII Art
+          <div> Generator</div>
         </div>
 
-        <div style={{marginTop: '60px' , marginLeft: '80px' , color: '#657ec3' , fontSize: '15px' , fontFamily: 'Verdana' }}>
-          <span style={{fontWeight: "bold" , color: '#526ebc'}}>Step 1:</span> Upload a picture.
+        <div
+          style={{
+            marginTop: '60px',
+            marginLeft: '80px',
+            color: '#657ec3',
+            fontSize: '15px',
+            fontFamily: 'Verdana',
+          }}>
+          <span style={{ fontWeight: 'bold', color: '#526ebc' }}>Step 1:</span>{' '}
+          Upload a picture.
         </div>
 
         <div>
-        <label htmlFor="contained-button-file">
-          <Button style = {{ marginTop: '20px' , marginLeft: '150px'}}
-            variant="contained" color="primary" component="span">
-            Upload
-          </Button>
-        </label>
+          <label htmlFor="contained-button-file">
+            <Button
+              style={{ marginTop: '20px', marginLeft: '150px' }}
+              variant="contained"
+              color="primary"
+              component="span">
+              Upload
+            </Button>
+          </label>
         </div>
 
-        <div style={{fontSize: '10px' , marginTop: '10px' , marginLeft: '150px', color: '#526ebc'}}>
+        <div
+          style={{
+            fontSize: '10px',
+            marginTop: '10px',
+            marginLeft: '150px',
+            color: '#526ebc',
+          }}>
           File name:
           {file && <div>${file.name}</div>}
         </div>
-        
-        <div style={{marginTop: '50px' , marginLeft: '80px' , color: '#657ec3' , fontSize: '15px' , fontFamily: 'Verdana' }}>
-          <span style={{fontWeight: "bold", color: '#526ebc'}}>Step 2:</span> Character density.
+
+        <div
+          style={{
+            marginTop: '50px',
+            marginLeft: '80px',
+            color: '#657ec3',
+            fontSize: '15px',
+            fontFamily: 'Verdana',
+          }}>
+          <span style={{ fontWeight: 'bold', color: '#526ebc' }}>Step 2:</span>{' '}
+          Character density.
           <div></div>
         </div>
 
         <div>
-        <CustomSlider style={{ width: '250px' , marginTop: '20px' , marginLeft: '150px'}}
+          <CustomSlider
+            style={{ width: '250px', marginTop: '20px', marginLeft: '150px' }}
             defaultValue={width}
             value={width}
             onChange={handleUpdateWidth}
@@ -108,50 +143,82 @@ export default function Home() {
             max={MAX_WIDTH}
             valueLabelDisplay="auto"
           />
-          {loading && <span style={{marginLeft: '440px' , marginTop: '20px' , color: '#657ec3'}}>Loading.....</span>}
+          {loading && (
+            <span
+              style={{
+                marginLeft: '440px',
+                marginTop: '20px',
+                color: '#657ec3',
+              }}>
+              Loading.....
+            </span>
+          )}
         </div>
 
-        <div style={{marginTop: '50px' , marginLeft: '80px' , color: '#657ec3' , fontSize: '15px' , fontFamily: 'Verdana' }}>
-        <span style={{fontWeight: "bold" , color: '#526ebc'}}>Step 3:</span> Choose the color scheme generated.
+        <div
+          style={{
+            marginTop: '50px',
+            marginLeft: '80px',
+            color: '#657ec3',
+            fontSize: '15px',
+            fontFamily: 'Verdana',
+          }}>
+          <span style={{ fontWeight: 'bold', color: '#526ebc' }}>Step 3:</span>{' '}
+          Choose the color scheme generated.
         </div>
-        
-        <div style={{marginTop: '20px'}}>
-        <Button style={{marginLeft: '150px'}}
-          variant="contained"
-          color="primary"
-          component="span"
-          disabled={!file}
-          onClick={handleGrayscaleImage}>
-          grayscale         
-        </Button>
+
+        <div style={{ marginTop: '20px' }}>
+          <Button
+            style={{ marginLeft: '150px' }}
+            variant="contained"
+            color="primary"
+            component="span"
+            disabled={!file}
+            onClick={handleGrayscaleImage}>
+            grayscale
+          </Button>
         </div>
         <div>
-        <Button style={{marginLeft: '150px' , marginTop: '10px'}}
-          variant="contained"
-          color="primary"
-          component="span"
-          disabled={!file}
-          onClick={handleColorfulImage}>
-          colorful
-        </Button>
+          <Button
+            style={{ marginLeft: '150px', marginTop: '10px' }}
+            variant="contained"
+            color="primary"
+            component="span"
+            disabled={!file}
+            onClick={handleColorfulImage}>
+            colorful
+          </Button>
         </div>
 
-        <div style={{marginTop: '50px' , marginLeft: '80px' , color: '#657ec3' , fontSize: '15px' , fontFamily: 'Verdana' }}>
-          <span style={{fontWeight: "bold" , color: '#526ebc'}}>Step 4:</span> Download.
+        <div
+          style={{
+            marginTop: '50px',
+            marginLeft: '80px',
+            color: '#657ec3',
+            fontSize: '15px',
+            fontFamily: 'Verdana',
+          }}>
+          <span style={{ fontWeight: 'bold', color: '#526ebc' }}>Step 4:</span>{' '}
+          Download.
         </div>
 
         <div>
-        <Button style={{marginTop: '20px' , marginLeft: '150px'}}
-          variant="contained" color="primary" component="span">
-          <a
-            href={`data:text/plain;charset=utf-8,${encodeURIComponent(output)}`}
-            download={output.startsWith('<div') ? 'art.html' : 'art.txt'}>
-            Download
-          </a>
-        </Button>
+          <Button
+            style={{ marginTop: '20px', marginLeft: '150px' }}
+            variant="contained"
+            color="primary"
+            component="span">
+            <a
+              href={`data:text/plain;charset=utf-8,${encodeURIComponent(
+                output,
+              )}`}
+              download={output.startsWith('<div') ? 'art.html' : 'art.txt'}>
+              Download
+            </a>
+          </Button>
         </div>
-    
-      <div
+
+        <div
           ref={result}
           style={{
             fontFamily: 'monospace',
@@ -159,7 +226,6 @@ export default function Home() {
             marginLeft: '450px',
             marginTop: '-520px',
           }}></div>
-
       </div>
     </div>
   );
