@@ -1,1 +1,2 @@
-export * from './CustomSlider'
+export * from './CustomSlider';
+export * from './Step';

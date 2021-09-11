@@ -1,11 +1,20 @@
 import React, { useState, useRef } from 'react';
 import Head from 'next/head';
-import { CustomSlider } from '../components';
-import { getGrayscaleResult, getColorfulResult } from '../helpers';
 import styled from '@emotion/styled';
+import { CustomSlider, Step } from '../components';
+import { getGrayscaleResult, getColorfulResult } from '../helpers';
+import { MAIN, MAIN_DARK, MAIN_LIGHT } from '../util/Theme';
+
+const ButtonContainer = styled.div`
+  margin-left: 9.3%;
+  margin-top: 20px;
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+`;
 
 const Button = styled.button`
-  background-color: #9faeda;
+  background-color: ${MAIN_LIGHT};
   color: #ffffff;
   font-size: 16px;
   font-family: Verdana;
@@ -13,6 +22,9 @@ const Button = styled.button`
   border-radius: 4px;
   border: 1px solid transparent;
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
+  & > label {
+    cursor: pointer;
+  }
 `;
 
 const Heading = styled.div`
@@ -22,20 +34,34 @@ const Heading = styled.div`
   color: white;
   font-size: 50px;
   font-family: Verdana;
-  background-color: #9faeda;
+  background-color: ${MAIN_LIGHT};
 `;
 
-const Steps = styled.span`
-  font-weight: bold;
-  color: #526ebc;
+const FileNameContainer = styled.div`
+  font-size: 10px;
+  margintop: 10px;
+  margin-left: 9.3%;
+  color: ${MAIN_DARK};
+  & > div {
+    width: 15%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 `;
 
-const ContentText = styled.div`
-  margin-top: 50px;
-  margin-left: 5%;
-  color: #657ec3;
-  font-size: 15px;
-  font-family: Verdana;
+const Loading = styled.span`
+  margin-left: 30%;
+  margin-top: 20px;
+  color: ${MAIN};
+`;
+
+const Result = styled.div`
+  font-family: monospace;
+  font-size: ${(props) => props.fontSize};
+  position: absolute;
+  left: 580px;
+  top: 250px;
 `;
 
 export default function Home() {
@@ -96,6 +122,13 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
+        <Heading>
+          ASCII Art<br></br>
+          Generator
+        </Heading>
+
+        <Step count="1" description="Upload a picture."></Step>
+
         <input
           accept="image/png, image/jpeg"
           id="contained-button-file"
@@ -103,35 +136,18 @@ export default function Home() {
           hidden
           onChange={handleUpdateFile}
         />
+        <ButtonContainer>
+          <Button>
+            <label htmlFor="contained-button-file">Upload</label>
+          </Button>
+        </ButtonContainer>
 
-        <Heading>
-          ASCII Art
-          <div> Generator</div>
-        </Heading>
-
-        <ContentText>
-          <Steps>Step 1: </Steps>
-          Upload a picture.
-        </ContentText>
-
-        <Button style={{ marginLeft: '9.3%', marginTop: '20px' }}>
-          <label htmlFor="contained-button-file">Upload</label>
-        </Button>
-
-        <div
-          style={{
-            fontSize: '10px',
-            marginTop: '10px',
-            marginLeft: '9.3%',
-            color: '#526ebc',
-          }}>
+        <FileNameContainer>
           File name:
-          {file && <div>${file.name}</div>}
-        </div>
+          {file && <div>{file.name}</div>}
+        </FileNameContainer>
 
-        <ContentText>
-          <Steps>Step 2:</Steps> Character density.
-        </ContentText>
+        <Step count="2" description="Character density."></Step>
 
         <CustomSlider
           style={{ width: '250px', marginTop: '20px', marginLeft: '9.3%' }}
@@ -143,22 +159,11 @@ export default function Home() {
           max={MAX_WIDTH}
           valueLabelDisplay="auto"
         />
-        {loading && (
-          <span
-            style={{
-              marginLeft: '30%',
-              marginTop: '20px',
-              color: '#657ec3',
-            }}>
-            Loading.....
-          </span>
-        )}
+        {loading && <Loading>Loading.....</Loading>}
 
-        <ContentText>
-          <Steps>Step 3:</Steps> Choose the color scheme generated.
-        </ContentText>
+        <Step count="3" description="Choose the color scheme generated."></Step>
 
-        <div style={{ marginLeft: '9.3%', marginTop: '20px' }}>
+        <ButtonContainer>
           <Button disabled={!file} onClick={handleGrayscaleImage}>
             Grayscale
           </Button>
@@ -166,28 +171,25 @@ export default function Home() {
           <Button disabled={!file} onClick={handleColorfulImage}>
             Colorful
           </Button>
-        </div>
+        </ButtonContainer>
 
-        <ContentText>
-          <Steps>Step 4:</Steps> Download.
-        </ContentText>
+        <Step
+          count="4"
+          description="Download. Please open it with monospace font."></Step>
 
-        <Button style={{ marginLeft: '9.3%', marginTop: '20px' }}>
-          <a
-            href={`data:text/plain;charset=utf-8,${encodeURIComponent(output)}`}
-            download={output.startsWith('<div') ? 'art.html' : 'art.txt'}>
-            Download
-          </a>
-        </Button>
+        <ButtonContainer>
+          <Button>
+            <a
+              href={`data:text/plain;charset=utf-8,${encodeURIComponent(
+                output,
+              )}`}
+              download={output.startsWith('<div') ? 'art.html' : 'art.txt'}>
+              Download
+            </a>
+          </Button>
+        </ButtonContainer>
 
-        <div
-          ref={result}
-          style={{
-            fontFamily: 'monospace',
-            fontSize,
-            marginLeft: '29.5%',
-            marginTop: '-500px',
-          }}></div>
+        <Result ref={result} fontSize={fontSize}></Result>
       </div>
     </div>
   );
