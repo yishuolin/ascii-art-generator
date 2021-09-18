@@ -27,10 +27,11 @@ const Button = styled.button`
   }
 `;
 
-const Heading = styled.div`
+const Heading = styled.h1`
   padding-top: 40px;
   padding-left: 5%;
   padding-bottom: 30px;
+  margin: 0;
   color: white;
   font-size: 50px;
   font-family: Verdana;
@@ -118,7 +119,20 @@ export default function Home() {
     <div>
       <Head>
         <title>ASCII Art Generator</title>
-        <meta name="description" content="ascii art generator" />
+        <meta
+          name="description"
+          content="Generate ASCII art from your own image."
+        />
+        <meta name="keywords" content="ascii, ascii art" />
+        <meta property="og:title" content="ASCII Art Generator" />
+        <meta
+          property="og:image"
+          content="https://ascii-art-generator.vercel.app/og-image.png"
+        />
+        <meta
+          property="og:description"
+          content="Generate ASCII art from your own image."
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
