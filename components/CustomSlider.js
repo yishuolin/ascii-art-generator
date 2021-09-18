@@ -1,8 +1,9 @@
 import { Slider } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import { MAIN_LIGHT } from '../util/Theme';
 const CustomSlider = withStyles({
   root: {
-    color: '#3354a1"',
+    color: MAIN_LIGHT,
     height: 8,
   },
   thumb: {
