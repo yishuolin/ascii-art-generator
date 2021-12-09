@@ -1,7 +1,7 @@
 # Ascii Art Generator
-A web app generating ascii art from pictures
+A web app generating ascii art from pictures. 
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a project for [nthunico](https://github.com/nthunico) to practice frontend skills, and is bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 First, install dependencies:
